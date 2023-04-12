@@ -46,7 +46,7 @@ function App() {
               country: locationData.country
             }];
           // Check that the new data is being created correctly
-          console.log("this is" + newData)
+          console.log("this is" + newData.city)
             return newData;
           });
         }
