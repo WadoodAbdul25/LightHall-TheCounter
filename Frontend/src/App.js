@@ -27,7 +27,7 @@ function App() {
   }, [currLocation]);
 
   useEffect(() => {
-    axios.get('http://localhost:10000/api/clicks')
+    axios.get('/api/clicks')
 
       .then((res) => {
 
@@ -57,7 +57,7 @@ function App() {
   const getLocation = async () => {
     const location = await axios.get('https://ipapi.co/json')
     setCurrLocation(location.data);
-    axios.post('http://localhost:10000/api/clicks', {
+    axios.post('/api/clicks', {
       counter: counter,
       city: location.data.city,
       country: location.data.country
