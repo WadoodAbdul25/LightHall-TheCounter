@@ -34,14 +34,13 @@ function App() {
         for (let i = 0; i < res.data.length; i++) {
           const locationData = {
             city: res.data[i].city,
-            country: res.data[i].country
           };
           setClicksData((prevClicksData) => {
-            const alreadyExists = prevClicksData.some(clickData => clickData.city === locationData.city && clickData.country === locationData.country);
+            const alreadyExists = prevClicksData.some(clickData => clickData.city === locationData.city);
             const newData = alreadyExists ? prevClicksData : [...prevClicksData, {
-              counter: counter,
+              counter: res.counter,
               city: locationData.city,
-              country: locationData.country
+              country: res.country
             }];
             console.log(newData); // Check that the new data is being created correctly
             return newData;
