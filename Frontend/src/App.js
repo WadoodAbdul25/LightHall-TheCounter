@@ -8,12 +8,16 @@ function App() {
     return savedValue !== null ? parseInt(savedValue) : 0;
   })
 
-  const [currLocation, setCurrLocation] = useState()
+  const [currLocation, setCurrLocation] = useState(() => {
+    const savedLocation = localStorage.getItem("currLocation");
+    return savedLocation !== null ? JSON.parse(savedLocation) : null;
+  });
   const [clicksData, setClicksData] = useState([])
 
   const handleCounter = () => {
     setCounter(counter + 1);
     getLocation();
+    localStorage.setItem("currLocation", JSON.stringify(currLocation));
 
   }
 
@@ -26,6 +30,8 @@ function App() {
     console.log(currLocation);
   }, [currLocation]);
 
+
+  
   useEffect(() => {
     axios.get('https://lighthall-thecounter.onrender.com/api/clicks')
 
