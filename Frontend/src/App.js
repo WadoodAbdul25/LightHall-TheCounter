@@ -35,6 +35,7 @@ function App() {
 
         for (let i = 0; i < res.data.length; i++) {
           const locationData = {
+            counter:res.data[i].counter,
             city: res.data[i].city,
             country: res.data[i].country
           };
