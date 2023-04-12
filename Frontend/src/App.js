@@ -31,6 +31,8 @@ function App() {
 
       .then((res) => {
 
+      
+
         for (let i = 0; i < res.data.length; i++) {
           const locationData = {
             city: res.data[i].city,
@@ -44,7 +46,7 @@ function App() {
               country: locationData.country
             }];
           // Check that the new data is being created correctly
-     
+          console.log("this is" + newData)
             return newData;
           });
         }
