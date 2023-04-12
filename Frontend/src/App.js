@@ -41,11 +41,7 @@ function App() {
           };
           setClicksData((prevClicksData) => {
             const alreadyExists = prevClicksData.some(clickData => clickData.city === locationData.city);
-            const newData = alreadyExists ? prevClicksData : [...prevClicksData, {
-              counter: counter,
-              city: locationData.city,
-              country: locationData.country
-            }];
+            const newData = alreadyExists ? prevClicksData : [...prevClicksData, locationData];
           // Check that the new data is being created correctly
           console.log("this is" + newData.city)
             return newData;
