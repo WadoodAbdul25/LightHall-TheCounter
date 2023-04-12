@@ -43,7 +43,8 @@ function App() {
               city: locationData.city,
               country: locationData.country
             }];
-            console.log(newData); // Check that the new data is being created correctly
+          // Check that the new data is being created correctly
+     
             return newData;
           });
         }
