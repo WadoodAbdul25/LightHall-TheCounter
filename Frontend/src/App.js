@@ -38,7 +38,11 @@ function App() {
           };
           setClicksData((prevClicksData) => {
             const alreadyExists = prevClicksData.some(clickData => clickData.city === locationData.city && clickData.country === locationData.country);
-            const newData = alreadyExists ? prevClicksData : [...prevClicksData, locationData];
+            const newData = alreadyExists ? prevClicksData : [...prevClicksData, {
+              counter: counter,
+              city: locationData.city,
+              country: locationData.country
+            }];
             console.log(newData); // Check that the new data is being created correctly
             return newData;
           });
@@ -48,7 +52,7 @@ function App() {
         console.log(err)
       })
 
-  }, []);
+  }, [counter]);
 
 
 
@@ -65,6 +69,8 @@ function App() {
       .then((res) => console.log(res))
       .catch((err) => console.log(err))
   }
+
+  
 
 
   return (
@@ -89,7 +95,7 @@ function App() {
             <div className="table">
               {clicksData.map((click, index) => (
                 <div className="clickdata" key={index}>
-                  <p>{counter}</p>
+                  <p>{click.counter}</p>
                   <p>{click.city}</p>
                   <p>{click.country}</p>
 
