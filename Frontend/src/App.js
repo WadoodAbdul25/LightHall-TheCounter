@@ -95,7 +95,7 @@ function App() {
             <div className="table">
               {clicksData.map((click, index) => (
                 <div className="clickdata" key={index}>
-                  <p>{currLocation.city == click.city? counter : click.counter}</p>
+                  <p>{click.counter}</p>
                   <p>{click.city}</p>
                   <p>{click.country}</p>
 
