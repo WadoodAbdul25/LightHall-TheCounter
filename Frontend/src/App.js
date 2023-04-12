@@ -27,7 +27,7 @@ function App() {
   }, [currLocation]);
 
   useEffect(() => {
-    axios.get('/api/clicks')
+    axios.get('https://lighthall-thecounter.onrender.com/api/clicks')
 
       .then((res) => {
 
