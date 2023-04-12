@@ -43,7 +43,7 @@ body {
 
   
   
-  .content1 button{
+  .content1 .btn{
     width: 200px;
     height: 55px;
     border-radius: 15px;
@@ -54,9 +54,21 @@ body {
     margin-bottom: 25px;
 }
 
-.content1 button:hover {
+
+.content1 .btn:hover {
   color: black;
   background-color: white;
+}
+
+.content1 .reset{
+  width: 200px;
+  height: 55px;
+  border-radius: 15px;
+  color: black;
+  font-size: x-large;
+  background-color: white;
+  margin-bottom: 25px;
+
 }
 
 .content2{

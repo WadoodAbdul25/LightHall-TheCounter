@@ -21,6 +21,10 @@ function App() {
 
   }
 
+  const handleReset = ()=>{
+    setCounter(0);
+  }
+
   useEffect(() => {
     localStorage.setItem("clicks", counter);
     document.title = "TheCounter"
@@ -92,7 +96,8 @@ function App() {
           <h2 className="text-3xl text-white font-semibold ">Number of Clicks:</h2>
           <p className="text-3xl text-white font-semibold">{counter}</p>
           {currLocation && <p className="text-3xl text-white font-semibold">{currLocation.city}, {currLocation.country}</p>}
-          <button onClick={handleCounter}>Click!</button>
+          <button className="btn" onClick={handleCounter}>Click!</button>
+          <button className="reset" onClick={handleReset}>Reset</button>
         </div>
 
         <div className="content2">
