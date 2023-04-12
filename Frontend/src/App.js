@@ -61,7 +61,7 @@ function App() {
   const getLocation = async () => {
     const location = await axios.get('https://ipapi.co/json')
     setCurrLocation(location.data);
-    axios.get('/api/clicks', {
+    axios.post('/api/clicks', {
       counter: counter,
       city: location.data.city,
       country: location.data.country
