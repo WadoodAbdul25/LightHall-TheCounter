@@ -10,6 +10,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+const PORT = process.env.PORT || 8000
+
 const uri = process.env.MONGODB_URI;
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 const connection = mongoose.connection;
@@ -36,6 +38,6 @@ app.get('/api/clicks', (req, res) => {
 
 })
 
-app.listen(process.env.PORT, () => {
+app.listen(PORT, () => {
   console.log(`your app is running on port` + process.env.PORT)
 })
