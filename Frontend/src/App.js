@@ -12,29 +12,45 @@ function App() {
     const savedLocation = localStorage.getItem("currLocation");
     return savedLocation !== null ? JSON.parse(savedLocation) : null;
   });
-  const [clicksData, setClicksData] = useState([])
+  const [clicksData, setClicksData] = useState(()=>{
+      const savedClicksData = localStorage.getItem("clicksData");
+    return savedClicksData !== null ? JSON.parse(savedClicksData) : [];
+  })
+  const [fiteredData, setFilteredData] = useState([])
 
   const handleCounter = async () => {
     setCounter(counter + 1);
     getLocation();
-    const location = await axios.get('https://ipapi.co/json');
-    if (location.data.city === clicksData[0].city) {
-      const highestCounter = clicksData[0].counter;
-      const updatedClicksData = [{ counter: highestCounter + counter, city: clicksData[0].city, country: clicksData[0].country },
-      ...clicksData.slice(1),
-      ];
-      setClicksData(updatedClicksData);
-    } else {
-      setClicksData([{ counter, city: location.data.city, country: location.data.country }, ...clicksData]);
+    const location = fiteredData.findIndex((location) => location.city === currLocation.city)
+
+    if (currLocation.city === fiteredData[location].city) {
+      const highestCounterValue = fiteredData[location].counter;
+      const UpdatedClicksData = [...fiteredData]
+      UpdatedClicksData[location] = { counter: highestCounterValue + counter, city: currLocation.city, country: currLocation.country }
+      setClicksData(UpdatedClicksData);
+       localStorage.setItem("clicksData", JSON.stringify(UpdatedClicksData));
+      
+    } else{
+      setClicksData(fiteredData)
     }
-    setCurrLocation(location.data);
 
     localStorage.setItem("currLocation", JSON.stringify(currLocation));
 
   }
 
+
+
   const handleReset = () => {
     setCounter(0);
+    const location = clicksData.findIndex((location) => location.city === currLocation.city)
+
+    axios.post('https://lighthall-thecounter.onrender.com/api/clicks', {
+      counter: clicksData[location].counter,
+      city: currLocation.city,
+      country: currLocation.country
+    })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err))
   }
 
   useEffect(() => {
@@ -43,33 +59,10 @@ function App() {
   }, [counter]);
 
   useEffect(() => {
-    console.log(currLocation);
+    // console.log(currLocation);
   }, [currLocation]);
 
 
-
-  // useEffect(() => {
-  //   axios.get('https://lighthall-thecounter.onrender.com/api/clicks')
-  //     .then((res) => {
-  //       for (let i = 0; i < res.data.length; i++) {
-  //         const locationData = {
-  //           counter: res.data[i].counter,
-  //           city: res.data[i].city,
-  //           country: res.data[i].country
-  //         };
-
-  //         setClicksData((prevClicksData) => {
-  //           const alreadyExists = prevClicksData.some(clickData => clickData.city === locationData.city);
-  //           const newData = alreadyExists ? prevClicksData : [...prevClicksData, locationData];
-  //           // Check that the new data is being created correctly
-  //           return newData;
-  //         });
-
-  //       }
-  //     }).catch((err) => {
-  //       console.log(err)
-  //     })
-  // }, [counter]);
 
   useEffect(() => {
     axios.get('https://lighthall-thecounter.onrender.com/api/clicks')
@@ -85,8 +78,9 @@ function App() {
         });
 
         const filteredClicksData = Object.values(clicksByCity).sort((a, b) => b.counter - a.counter);
-
-        setClicksData(filteredClicksData);
+        console.log(filteredClicksData)
+        setFilteredData(filteredClicksData);
+    
       })
       .catch((err) => {
         console.log(err)
@@ -108,6 +102,7 @@ function App() {
       .then((res) => console.log(res))
       .catch((err) => console.log(err))
   }
+
 
 
 
