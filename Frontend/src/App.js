@@ -41,8 +41,6 @@ function App() {
 
       .then((res) => {
 
-      
-
         for (let i = 0; i < res.data.length; i++) {
           const locationData = {
             counter:res.data[i].counter,
@@ -53,7 +51,6 @@ function App() {
             const alreadyExists = prevClicksData.some(clickData => clickData.city === locationData.city);
             const newData = alreadyExists ? prevClicksData : [...prevClicksData, locationData];
           // Check that the new data is being created correctly
-          console.log("this is" + newData.city)
             return newData;
           });
         }
@@ -73,7 +70,7 @@ function App() {
     setCurrLocation(location.data);
     axios.post('https://lighthall-thecounter.onrender.com/api/clicks', {
       counter: counter,
-      city: location.data.city,
+      city: location.data.region,
       country: location.data.country
     })
       .then((res) => console.log(res))
